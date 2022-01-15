@@ -14,6 +14,9 @@ import math
 import json
 from flax.serialization import to_bytes, from_bytes
 
+
+from inltk.inltk import tokenize
+
 import shutil
 import torch
 from transformers.file_utils import PushToHubMixin
@@ -414,11 +417,22 @@ def main():
         "es_XX": 3,
     }
 
+    # map_bart_nltk = {
+    #     "en_XX": "english",
+    #     "de_DE": "german",
+    #     "fr_XX": "french",
+    #     "es_XX": "spanish",
+    # }
+
     map_bart_nltk = {
-        "en_XX": "english",
-        "de_DE": "german",
-        "fr_XX": "french",
-        "es_XX": "spanish",
+        "en_XX": "en",
+        "gu_IN": "gu",
+        "hi_IN": "hi",
+        "bn_IN": "bn",
+        "ml_IN": "ml",
+        "mr_IN": "mr",
+        "ta_IN": "ta",
+        "te_IN": "te",
     }
 
     if training_args.resume_from_checkpoint is None:
@@ -582,10 +596,10 @@ def main():
         preds = [pred.strip() for pred in preds]
         labels = [label.strip() for label in labels]
 
-        preds = [nltk.word_tokenize(pred, language=lang) for pred in preds]
+        preds = [tokenize(pred, lang) for pred in preds]
 
         # put in another list as seen https://github.com/huggingface/datasets/blob/256156b29ce2f4bb1ccedce0638491e440b0d1a2/metrics/bleu/bleu.py#L82
-        labels = [[nltk.word_tokenize(label, language=lang)] for label in labels]
+        labels = [[tokenize(label, lang)] for label in labels]
 
         gc.collect()
         return preds, labels
