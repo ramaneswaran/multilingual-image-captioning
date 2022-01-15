@@ -199,11 +199,15 @@ class ImageTextDataset(VisionDataset):
         gc.collect()
 
         self.map_lang_code = {
-            "en": "en_XX",
-            "de": "de_DE",
-            "fr": "fr_XX",
-            "es": "es_XX",
-        }
+                "en": "en_XX",
+                "gu": "gu_IN",
+                "hi": "hi_IN",
+                "bn": "bn_IN",
+                "ml": "ml_IN",
+                "mr": "mr_IN",
+                "ta": "ta_IN",
+                "te": "te_IN"
+                }
 
         for idx,img_file in enumerate(examples["image_file"].values):
             if os.path.exists(os.path.join(self.root,img_file)):
