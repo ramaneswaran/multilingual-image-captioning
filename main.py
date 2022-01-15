@@ -468,7 +468,7 @@ def main():
 
     _df = pd.read_csv(data_args.validation_file, delimiter="\t", index_col=False)
     gc.collect()
-    lang_list = ["en", "fr", "es", "de"]
+    lang_list = ["en", "ta", "hi"]
 
     logger.info(f"Splitting validations TSVs")
 
